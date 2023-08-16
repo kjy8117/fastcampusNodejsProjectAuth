@@ -1,0 +1,422 @@
+CHAPTER1 JS
+
+var/let/const
+var: 중복선언 가능, 재할당 가능, 함수 레벨의 scope
+let: 중복선언 불가능, 재할당 가능, 블록 레벨의 scope
+const: 중복선언 불가능, 재할당 불가능, 블록 레벨의 scope
+Hoisting: 코드가 실행되기 전에 변수와 선언이름(또는 함수이름)이 로컬 범위(또는 유효범위)의 맨 위로 끌어올리는 경우
+함수의 hoisting: 실행문을 함수선언문 보다 먼저 실행되면, JS 엔진은 함수선언문을 위쪽으로 끌어올린다.
+var: console.log 실행문 아래 var로 선언한 변수이름과 할당된 값이 있을 경우, js는 선언단계(var 변수이름)과 할당단계(= 할당된 값;)으로 나뉜다. js 인터프리터는 var 선언단계를 값이 없는 상태로 console 실행문 위로 끌어올려 실행한다. 그래서 var variableName; console.log(variableName)이 되는 것이고 undefined이 출력된다.
+let&const: let과 const를 호이스팅할 때 var와 다르게 디폴트 초기값(var의 경우 undefined)이 설정되지 않아 실행문이 먼저 실행되면 에러가 뜬다. TMZ(Temporal Dead Zone)이라고 하여, 변수를 사용할 수 없는 일시적 비활성 상태를 의미한다.
+변수 선언 시, 재할당할 필요가 없다면 const를 사용하고, 재할당이 필요하다면 let을 사용하여 최대한 scope를 좁게 만들어서 사용하는 것이 좋다.
+JS type
+Primitive type: String, Number, Boolean, Null, Undefined, Symbol 그리고 call-stack이라는 메모리 공간에 저장
+Reference type: Object, Array 그리고 call-stack에서 저장되는 참조타입의 데이터는 실제 배열이나 객체가 아닌, 이들 데이터가 heap이라는 별도의 메모리 공간에 있는 해당 데이터의 "주소값"이다. 즉, 실제로 데이터는 "주소: 데이터" 구조의 heap에 저장되어 있어 call-stack이 여기의 주소를 참조하는 것이다.
+JS는 동적 타입의 언어이기 때문에, JS의 변수는 어떤 특정 타입과 연결되지 않아 모든 타입으로도 할당과 재할당이 가능하다. 같은 변수가 여러 개의 타입을 가질 수 있고 타입을 명시하지 않아도 된다.
+Loop
+for/in: 객체의 속성을 따라 반복한다.
+do/while: do 실행문과 while 조건문으로 나뉜 구조로, while 조건문이 실행하기 전에 do 실행문에서 한 번 실행된다. 그러고 나서 while문이 참이 될 때까지 do 실행문이 실행된다.
+Window 객체
+브라우저에서 제공해주는 객체이다.
+브라우저 API
+window.location
+window.history: history.forward, history.back 등등
+window.navigator
+DOM(Document Object Model):window.document
+CRP(Critical Rendering Path): 브라우저가 서버로부터 HTML 웹 페이지 응답을 받고 웹 브라우저가 이 HTML 문서를 읽고 뷰포트를 하는 과정
+querySelector(클래스이름 또는 아이디이름), getElementById(), getElementByName(), li:last-child, li:nth-child(#), getElementsByTagName, getElementsByClassName, querySelectorAll(), textContent()
+innerHTML: HTML 있는 그대로 보여줌
+innerText: 긴 공백은 무시하고 하나의 공백으로 처리한다.
+innerContent: 텍스트를 숨기는 스타일 적용된 것까지도 보여줌
+addEventListener(이벤트 종류, 실행할 이벤트, optional)
+PointerEvent 객체, PointerEvent(.type, .target),
+offsetY: 요소로부터의 거리 좌표, clientY: 윈도우로부터의 거리 좌표
+이벤트
+preventDefault(), mousedown - mouseup - click 이벤트 순으로 발생
+OOP
+자료 추상화, 상속, 다형성(인스턴스에 따라 다양한 형태를 가질 수 있는 것), 캡슐화
+프로토타입(Prototype)
+프로토타입은 js 객체가 다른 객체로부터 메소드와 속성을 상속받는 메커니즘이다.
+모든 객체는 전역 객체 프로토타입(global object prototype)을 가진다.
+프로토타입 생성방법: Object.create(프로토타입이름);
+hasOwnProperty
+
+ES6부터 클래스안에 메소드를 선언하면, 해당 클래스 인스턴스 객체의 내부 프로토타입에 자동으로 해당 메소드가 들어간다.
+ES6
+Static: 프로토타입이 아닌 클래스 함수 자체 내에 메서드를 설정할 수 있다. 생성자 내부 인자를 안 쓰고 독립적으로 정의할 때 static을 사용하기 때문에 인스턴스가 아닌 클래스 이름을 이용해서 사용한다.
+Sub Class(상속)
+extends 사용. class 자식클래스 이름 entends 부모클래스 이름
+super(): 부모 클래스 생성자에서 선언된 필드를 그대로 자식 클래스에서 받아들이겠다.
+자식 클래스로 인스턴스한 객체의 프로토타입을 살펴보면, 자식 클래스의 메소드 그리고 자식클래스의 프로토타입을 확인할 수 있고 이 프로토타입 내부를 들어가면 부모 클래스의 프로토타입을 볼 수 있다. 즉, 내부로 들어갈수록 부모클래스의 프로토타입이 들어있다.
+super()
+constructor를 사용하면 인스턴스화된 객체에서 다른 메서드를 호출하기전에 수행하는 사용자 지정 초기화
+또한, 자식 클래스 내에서 부모클래스의 메소드를 호출할 때도 사용. ex) super.부클메()
+Closure
+중첩된 함수 구조에서, 외부 함수가 실행을 완료하고 해당 함수의 변수가 더이상 외부함수에서 액세스할 수 없는 경우에도 내부함수는 외부 함수 내의 변수나 메서드에 접근할 수 있다.
+Event Loop
+setTimeout() 동기/비동
+메모리 힙: 메모리할당이 발생되는 곳으로, 변수를 정의하면 저장되는 창고이다.
+call stack: 코드가 실행될때 스택(함수 등)들이 이곳에 쌓인다.
+자바스크립트 소스코드는 브라우저 내부의 JS 엔진, Web API, callback queue, 이벤트 루프 내부에서 돌아간다.
+setTimeout()과 같이 비동기 함수는 web api에 머무르다가 비동기 함수의 처리시간이 지나면 callback queue로 함수가 들어간다. 이벤트 루프는 JS엔진의 callstack과 web api의 콜백함수들이 대기하는 callback을 주시하고 있다가 callstack이 비게 되면 callback queue에 콜백함수가 들어온 순서대로 콜스택에 콜백함수가 들어간다.
+Promise
+new Promise((resolve, reject) => { 1. 비동기 작업을 실행하고 res를 받아오면 2. resolve 함수에 넣어주고 3. 실패하면 reject에 넣어줘서 상황에 따른 함수를 실행한다.})
+Promise는 js 비동기 처리에 사용되는 객체
+pending, fulfilled, rejected
+프로미스는 비동기작업의 리턴 값이 미래의 완료와 실패 그 결과값을 나타낸다.
+then: resolve / catch: reject
+promise 생성자는 주로 promise를 지원하지 않는 함수를 감쌀 때 사용
+Promise.all: 순회 가능한 객체에 주어진 모든 프로미스가 이행한 후 혹은 프로미스가 주어지지 않았을 때 이행하는 promise로 반환. 주어진 프로미스 중 하나가 거부하는 경우, 첫번째로 거절한 프로미스의 이유를 사용해 자신도 거부.
+promise.race(): promise 객체를 반환. 이 객체는 iterable 안에 있는 프로미스 에 가장 먼저 완료된 것의 결과값으로 그대로 이행 또는 거부
+async function 함수이름(){await fetch()}: promise에 then 체인형식으로 호출하는 것보다 가독성 좋음, await는 async 내부 함수에서만 사용할 수 있다.
+동기식 코드에서 쓰는 try ...catch 구문을 async/catch 구조에서 사용 가능
+CHAPTER2 NODE JS
+JS엔진은 초기에 단순한 인터프리터였지만 최신 엔진은 엔진 향상을 위해 JUST-IN TIME 컴파일을 사용한다.
+런타임이란 프로그래밍 언어가 구동되는 환경이다. Node JS는 JS의 런타임 환경이기 때문에 크롬 등의 브라우저들에서 JS가 구동된다.
+REPL? Read Evaluation Print Loop: 유저가 특정 코드를 입력하면 그 코드를 평가 및 실행결과를 출력하는 일을 반복하는 환경!
+브라우저의 JS 엔진(최신버전: V8)은 최신 ECMAScript 기준으로 계속 업데이트가 이루어진다.
+Node JS API인 Process 객체? 혼동주의! process 객체는 node.js에서 제공해주는 객체이지 js가 제공해주는 것이 아니다!
+Process.args: 명령어 줄들이 있는 배열로 리턴
+브라우저 API: window, document, history, location, navigator, url, settimeout등
+Node JS API: global, process, module, filename, require, url, settimeout 등
+
+node js가 작업을 처리하는 방법?
+js 엔진이 코드를 해석하고 Node JS API 중 하나의 함수를 호출하고 node js 바인딩을 통해 libuv에 의해 원하는 작업을 처리한다.
+libuv
+비동기 입출력을 위한 멀티 플랫폼 지원 라이브러리. 이 라이브러리는 파일시스템, 네트워크, 파이프라인, 신호처리, 폴링 및 스트리밍을 처리하는 메커니즘을 제공한다.
+c로 작성되어있다.
+uv_fs_open
+비동기
+비동기 코드를 작성하기 위해 js 이외의 다른 api의 도움을 받는다.
+브라우저에서 사용하면 브라우저 api를 사용 ex. window, object etc
+node js에서 사용하면 node js api 사용 ex. global object
+blocking in node js
+node js 프로세스 실행 중에 js 소스코드 실행이 non-js 소스코드 작업이 끝날 때까지 대기해야 하는 경우.
+blocking method? readFileSync(): 이 메소드의 실행이 끝날 때까지(즉, 파일을 읽기 전까지) 아래 js 코드는 실행되지 않음
+node js 표준 라이브러리의 모든 입출력 메서드는 non-blocking 및 callback 함수를 허용하는 비동기버전을 제공한다.
+비동기이면서 blocking 메소드 vs 비동기이면서 non-blocking 메소드 사이 실행결과 차이
+node js가 비동기 작업을 처리하는 방법 노드는 libuv에서 제공하는 event loop을 이용해서 여러 비동기 작업을 같이 실행할 수 있다.
+예를 들어 비동기 작업들은 싱글스레드 안에서 실행되지 않고 이벤트 루프를 통과한 후, 작업의 종류에 따라 작업이 처리되는 곳으로 위임된다. 예를 들어 파일 시스템 관련 비동기 작업이라면, libuv가 제공하는 스레드 풀에 해당 작업의 처리를 위임한다. 또한, 네트워크 관련 비동기 작업이라면, 운영체제 커널에 해당 작업을 위임하고 작업은 처리된다.
+node js는 입출력 작업을 자신의 메인 스레드가 아닌 다른 스레드에 위임하여 싱글 스레드로 non-blocking 입출력 작업을 지원하며 이 기반에는 이벤트 루프가 있다.
+코드가 callstack에 쌓인 후 실행하되, 비동기 작업이라면 이벤트 루프는 비동기 작업을 별도의 스레드에 위임한다.
+node를 구성하는 libuv는 해당 비동기 작업의 특징에 따라 os kernel 또는 thread pool 등에 위임하는 방식으로 비동기 작업을 처리한다.
+비동기작업이 콜백함수를 가지고 있는 경우라면, 스레드에서 작업이 끝나고 이벤트 루프로 작업이 끝났음을 알리면, 이벤트 루프에서 해당 작업의 콜백함수를 호출한다.
+이벤트 루프
+node js가 여러 비동기 작업을 관리하기 위한 구현체이다. 즉, 여러 비동기 작업을 모아서 관리하고 순서대로 실행할 수 있게 해주는 도구.
+
+timer: 이벤트 루프 시작 단계. 타이머들의 콜백을 큐에 저장 poll
+poll
+check
+
+CHAPTER3 NODE JS MODULE SYSTEM AND PACKAGE MANAGEMENT
+
+모듈
+장점: 관계가 있는 코드끼리 모아 놓아서 코드 정리할 수 있다. 관계없는 디테일한 부분은 숨기고 직접 사요하는 코드만 가져와서 보여줄 수 있다. 즉, 해당 모듈의 특정 함수나 변수, 클래스만을 가져와서 사용. 모듈은 재사용성이 가능하다.
+모듈 exports? module.exports={a}, const {a} = require('module directory');
+모듈 캐싱? console.log(require.cache);
+
+Object.assign()
+하나 이상의 출처 객체에서 대상(target) 객체로 속성을 복사하고 대상 객체를 반환.
+Object.assign(target, src1, src2) 이렇게 하면 src1, src2에 있는 속성들이 target으로 복사 생성되어 target의 객체 역시 새로 업뎃
+const result = Object.assign(target, src1, src2)
+result = target (리턴되는 값이 같다.)
+전개 연산자를 활용할 수 있다.
+const result = { ...target, ...src1, ...src2}
+
+
+Object.entries() 정적메소드
+주어진 객체의 각 속성과 값으로 하나의 배열을 만들어 요소로 추가한 2차원 배열을 반환
+const user = {
+a:1
+b:2
+c:3
+}
+Object.entries(user)
+-> [[a,1], [b,2],[c,3]]
+
+for (const [key, val] of Object.entries(user)){
+console.log(key, val)
+}
+
+Object.keys()
+주어진 객체의 속성 이름을 나열한 것을 배열로 반환
+
+Object.values()
+주어진 객체의 값 이름을 나열한 것을 배열로 반환
+문자, 숫자, boolean, null, object, array만 사용
+문자는 ""만 사용 JSON.parse('"sadjflaskj"')
+JSON.parse({"a": "hi"})
+후행 쉼표 사용 불가
+.json 확장자
+데이터 전달을 위한 표준 포맷
+
+JSON.stringfy(data): 데이터를 JSON 문자로 변환
+JSON.parse(data): JSON 문자를 분석해 데이터로 변환
+
+하나의 json는 하나의 데이터만 가지고 있자!
+
+Nodes: html 요소, 텍스트, 주석 등을 의미
+Nodes: html 요소, 텍스트, 주석 등을 의미
+Element: html 요소만을 의미
+
+parent.childNodes: 부모 요소의 모든 자식 노드 확인
+parent.children: 부모 요소의 모든 자식 요소 확인
+
+console.log(parent)
+
+getElementById()
+html id 속성 값으로 검색한 요소를 반환.
+속성 요소가 여러 개면, 가장 먼저 찾은 요소(즉 가장 맨 앞에 있는 요소)만 반환
+만약 해당 id속성이 없으면 null 리턴
+
+querySelector()
+css 선택자로 검색한 요소를 하나 반환
+여러 요소가 있다면 가장 먼저 찾은 요소만 반환
+검색 결과 없으면 null 반환
+ex) document.querySelector('.child:first-child')
+
+querySelectorAll()
+CSS 선택자로 검색한 모든요소를 NodeList로 반환. 이 노드리스트는 유사배열 형태!
+만약 유사배열을 진짜 배열로 만들고자 할때!?
+Array.from(arraylike aka nodelist)
+NodeList 객체는 .forEach() 사용 가능
+
+textContent
+Node.parentElement: 노드의 부모 요소 반환
+
+Element.closest()
+자신을 포함한 조상 요소 중 css 선택자와 일치하는 가장 가까운 요소를 반환한다. 만약 찾고자 하는 html 요소를 자신도 갖고 있다면 자신 스스로 리턴.
+
+Node.previousSibling 이전 형제 노드 반환
+Node.nextSibling 다음 형제 노드 반환
+Element.previousElementSibling
+Element.nextElementSibling
+
+Element.children 요소의 모든 자식 요소 반환
+
+Element.firstElementChild 요소의 첫번째 자식
+Element.lastElementChild 요소의 마지막 자식
+
+document.createElement()
+메모리에만 존재하는 새로운 HTML 요소를 생성해 반환 document.createElement('div')
+
+Element.prepend(노드) 첫번째
+Element.append(노드) 마지막
+노드를 요소의 첫번째 또는 마지막 자식으로 삽입
+주석삽입: Element.prepend(new Comment('주석메시지'))
+
+Element.remove()
+요소 제거
+querySelector로 찾은 요소를 제거할 때 사용
+
+Element.insertAdjacentElement()
+대상요소의 지정한 위치에 새 요소를 삽입
+대상요소.insertAdjacentElement(위치, 새 요소)
+위치: beforebegin, afterbegin, beforeend, afterend
+
+Node.insertBefore(노드, 참조노드)
+부모노드.insertBefore(추가할 노드, 참조노드=같은 레벨의 형제노드): 즉 추가할 노드는 참조노드 와 같은 레벨(형제관계)이지만 위치는 참조노드보다 앞에 위치함.
+
+Node.contains(주어진 노드):
+노드.contains(주어진노드): 주어진 노드가 노드와 같은 레벨(형제관계)인건지 또는 노드의 후손인지 확인. 어느 한쪽이라도 맞다면 true 리턴
+document.body는 노드이다.
+
+Node.textContent
+해당 노드의 모든 텍스트를 얻거나 변경할 수 있다.
+
+Element.innerHTML
+요소의 모든 html 내용을 하나의 문자로 얻거나 새 html 지정.
+Element.innerHTML = `<div>
+<span>hiiiii</span>
+</div>`
+/* html */
+(Comment tagged template)
+
+Element.dataset
+한 요소의 각 data- 속성 값을 얻거나 지정
+
+Element.tagName 요소의 태그 이름을 반환
+Element.id 요소의 id 속성 값을 얻거나 지정
+Element.className 요소의 class 속성 값을 얻거나 지정
+
+Element.classList
+.add() 새 속성 값 추가
+.remove() 해당 속성 제거
+.toggle() 값을 토글
+토글이란 어떤 것이 없으면 있게 만들어줄 수 있고 반대로 어떤 것이 있을 때 없게 만들어줄 수 있는 작용
+.contains() 값 확인 boolean type
+
+Element.style
+요소의 style 속성(인라인 스타일)의 css 속성값을 얻거나 지정
+e.style.width = '100px' 개별 지정
+Object.assign(e.style, {
+width: '100px',
+fontSize: '20px'
+}) 한 번에 지정
+
+window.getComputedStyle(Element)
+요소에 적용된 스타일 객체를 반환
+
+Element.getAttribute(속성, 속성 값)
+Element.setAttribute(속성)
+
+Element.hasAttribute(속성) boolean type
+Element.removeAttribute(속성)
+요소에서 특정 속성을 확인하거나 제거
+
+window.innerWidth
+window.innerHeight
+현재 화면의 크기를 얻음
+
+window.scrollX
+window.scrollY
+페이지 좌상단 기준으로 현재 화면의 수평 혹은 수직 스크롤 "위치"를 얻는다.
+
+window.scrollTo()
+Element.scrollTo()
+지정된 좌표로 대상(화면, 스크롤 요소)을 스크롤
+대상.scrollTo(x좌표, y좌표)
+대상.scrollTo({ top:Y, left:X, behavior:'smooth'})
+
+Element.clientWidth
+Element.clientHeight
+테두리 선을 제외한 요소의 크기 얻는다.
+
+Element.offsetWidth
+Element.offsetHeight
+테두리 선 포함한 요소의 크기를 얻는다.
+
+Element.scrollLeft
+Element.scrollTop
+요소의 좌상단 기준으로 현재 스크롤 요소의 수평 또는 수직 스크롤 위치를 얻는다.
+
+Element.offsetLeft
+Element.offsetTop
+페이지 좌상단기준, 요소의 위치를 얻는다.
+
+Element.getBoundingClientRect()
+테두리 선을 포함한 요소의 크기와
+화면에서의 상대 위치 정보를 얻는다.
+DOMRect 객체가 리턴값으로 출력.
+
+get
+1. 서버에서 데이터 검색
+2. 길이 제한 있는 서버로 데이터 보내기
+3. 브라우저 기록에 남음
+4. 캐시
+
+but, 개인정보 데이터 처리에 적합하지 않고 서버에서 데이터 수정을 get으로 처리하는 것은 바람직하지 않다.
+
+post
+리소스를 변경하기 위해 서버에 데이터를 보낸다.
+post로 보내는 데이터는 사용자가 볼 수 없는 요청 본문으로 전송된다.
+1. 서버 데이터 수정 가능
+2. 민감한 데이터 처리
+3. 길이 제한 없이 데이터 보낵
+but 캐시에 저장 불가, 브라우저에 기록 남기기 불가
+
+put, patch
+어떤 데이터의 수정을 하기 위한 메서드
+put은 데이터 데이터 전체 교체(모든 필드 필요)
+patch 데이터 부분 교체(일부 필드 필요)
+
+http 특징 중 하나인 stateless는
+상태 비저장 프로토콜은 서버가 여러 요청 동안 성능 저해를 막기 위해 
+각 사용자에 대한 정보나 상태를 유지할 필요가 없다. -> 그래서 인증 절차 필요
+
+req
+start line
+headers : key-value 구조
+body: request로 보낼 데이터가 담겨 있음
+res
+status line
+headers
+body
+
+require('http');
+port =3000
+http.createServer((req, res) => {
+res.writeHead(200, {
+'Content-Type': 'text/plain'
+})
+res.end('bye')});
+server.listen(port, () => { console.log})
+
+server객체는 EventEmitter 기반
+server 객체는 포트를 수신하고 요청이 만들어질 때마다 requestListener라는 함수를 실행
+
+server.listen() 실행
+server.close() 종료
+
+RequestListener
+
+서버에서 클라이언트로 텍스트가 아닌 js 객체(Object) 보내려면?
+'Content-Type': 'application/json'
+res.end(JSON.stringify(data)
+
+Object.assign() 출처 객체들의 모든열거 가능한 자체 속성을 복사하여 대상 객체에 붙여놓는다. 
+그리고 대상 객체 반환
+
+require(express)
+app = express()
+
+app.get('/', (req, res) =>{ res.send('hi')
+app.listen(port#, () => {
+
+app.get('/', (req, res) => {
+res.send()})
+
+req.params
+res.jsonp
+res.sendStatus
+
+res.json()
+res.send()
+기능상으로 동일
+그렇다면, res.send()로도 object를 보내도 되는 건가?
+
+1. 먼저 obj 객체는 JSON 문자열로 변환
+2. Cotent-Type 헤더가 세팅되어 있지 않은 경우, res객체(this)에 content-type으로 application/json 세팅
+3. res.send(body) 실행
+res.json(obj)
+res.send(string)
+
+obj -> res.send(obj) -> res.json(obj) -> stringify(obj) -> res.send(stringified obj)
+
+res.json() vs res.send()
+차이는 res.send로 보낼 경우, 내부에서 res.json(obj)호출이 한번 더 일어난다. 
+그래서 obj를 보낼 때 res.json이 직관적이라 res.json()이 효율적
+
+[res.end]
+res.end를 사용해야할 때(즉, res.end()로 종료해야하는 경우): 응답 메시지에 데이터를 제공하지 않고 응답을 종료하는 경우. 404 페이지에 유용 res.status(400).end();
+
+res.end를 사용하지 않아도 되는 경우
+응답할 데이터를 res.send(data) 또는 res.json(data)로 보내면 알아서 종료
+
+res.end는 html 소스코드를 담을 수 있다.
+res.end('<p>Some HTML</p>')
+
+ETag??
+ETag HTTP response header는 리소스의 특정 버전에 대한 식별자. 
+콘텐츠가 변경되지 않는 경우, 웹 서버에서 전체 응답을 보낼 필요가 없으므로 캐시를 보다 효율적으로 사용하고 대역폭을 절약할 수 있다.
+
+express 앱은 일련의 미들웨어 기능 호출이다.
+미들웨어 기능은 앱이 요청-응답 주기에서 요청 객체, 응답객체 그리고 next 미들웨어 함수에 접근할 수 있는 기능이다. next 미들웨어 기능은 일반적으로 next 변수로 표시
+
+app = express()
+app.use -> 미들웨어 등록
+app.use((req,res,next) => { next() 다음 미들웨어로 이동 })
+
+일련의 미들웨어를 등록하면 각 미들웨어들에게 로그, 바디파서, 쿠키파서 등 역할을 할당하여 앱을 제작한다.
+
+app.use((req, res, next) => {
+console.log(`${req.method} ${req.url}`);
+next();
+});
+요청에 대한 로그를 남기는 미들웨어
+
+express.json 사용하는 이유는 post 요청하기 위해
+
+M: 데이터와 비즈니스 로직 관리
+V: 레이아웃과 화면 처리
+C: 명령을 MODEL과 VIEW 부분으로 라우팅
